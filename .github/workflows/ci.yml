@@ -46,7 +46,7 @@ jobs:
         cd /opt/carma/src/multiple_object_tracking/
         build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output ./build.sh
         mkdir coverage
-        cd /opt/carma/src/multiple_object_tracking/build/coverage
+        cd /opt/carma/src/multiple_object_tracking/coverage
         gcov /opt/carma/src/*.cpp --object-directory /opt/carma/src/multiple_object_tracking/build/
     - name: Run SonarScanner
       uses: usdot-fhwa-stol/actions/sonar-scanner@main
