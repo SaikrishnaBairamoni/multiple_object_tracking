@@ -30,7 +30,7 @@ jobs:
       run: |
         source "$INIT_ENV"
         source "$ROS_2_ENV"
-        cd src
+        cd src/multiple_object_tracking
         ls -la && pwd
         mkdir build
         cd build
