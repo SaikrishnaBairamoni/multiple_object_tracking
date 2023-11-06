@@ -24,10 +24,13 @@ jobs:
         path: src/${{ github.event.repository.name }}
     - name: Install Dlib
       run: sudo apt-get update && sudo apt-get install -y libdlib-dev
+    - name: Move source code
+      run: mv $GITHUB_WORKSPACE/src /opt/carma/
     - name: Build
       run: |
         source "$INIT_ENV"
         source "$ROS_2_ENV"
+        cd src
         ls -la && pwd
         mkdir build
         cd build
