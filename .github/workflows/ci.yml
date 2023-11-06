@@ -43,8 +43,8 @@ jobs:
         source "$INIT_ENV"
         source "$ROS_2_ENV"
         chmod 755  -R /opt/carma/src
-        cd /opt/carma/src/multiple_object_tracking/build
-        build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output ./opt/carma/src/multiple_object_tracking/build.sh
+        cd /opt/carma/src/multiple_object_tracking/
+        build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output ./build.sh
         mkdir coverage
         cd /opt/carma/src/multiple_object_tracking/build/coverage
         gcov /opt/carma/src/*.cpp --object-directory /opt/carma/src/multiple_object_tracking/build/
