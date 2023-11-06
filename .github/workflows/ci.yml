@@ -42,6 +42,8 @@ jobs:
       run: |
         source "$INIT_ENV"
         source "$ROS_2_ENV"
+        chmod 755  -R /opt/carma/src
+        export LD_LIBRARY_PATH=/usr/local/lib 
         cd /opt/carma/src/multiple_object_tracking/build
         build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output ./build.sh
         mkdir coverage
