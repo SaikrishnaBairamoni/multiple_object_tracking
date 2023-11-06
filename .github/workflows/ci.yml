@@ -30,6 +30,7 @@ jobs:
       run: |
         source "$INIT_ENV"
         source "$ROS_2_ENV"
+        ls -la && pwd
         mkdir build
         cd build
         cmake ..
