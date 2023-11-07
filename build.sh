@@ -17,10 +17,15 @@
 # wrapped by the sonarcloud build-wrapper
 set -e
 
+# mkdir build
+# cd build
+# cmake ..
+# cmake --build .
+# make
+# cd /opt/carma/src/multiple_object_tracking/build
+# ctest --output-on-failure
 mkdir build
-cd build
-cmake ..
-cmake --build .
-make
-cd /opt/carma/src/multiple_object_tracking/build
-ctest --output-on-failure
+cmake -S . -B build
+build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build/ --config Release
+./build/coverage
+gcovr --sonarqube > coverage.xml
