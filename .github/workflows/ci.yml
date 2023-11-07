@@ -49,7 +49,6 @@ jobs:
         cd build
         ctest --output-on-failure
         gcovr --sonarqube > coverage.xml
-        ls -la && pwd
     - name: Find coverage.xml
       shell: bash
       run: |
