@@ -28,12 +28,12 @@ jobs:
     - name: Move source code
       run: mv $GITHUB_WORKSPACE/src /opt/carma/
     - name: Set up Python 3.8 for gcovr
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v2
       with:
         python-version: 3.8
     - name: install gcovr 5.0
       run: |
-        python3 install gcovr==5.0 # 5.1 is not supported
+        python -m pip install gcovr==5.0
     - name: Install sonar-scanner and build-wrapper
       uses: SonarSource/sonarcloud-github-c-cpp@v1
     - name: Run C++ Tests
