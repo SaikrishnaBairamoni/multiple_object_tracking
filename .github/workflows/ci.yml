@@ -33,7 +33,8 @@ jobs:
         python-version: 3.8
     - name: Compile Python from source
       run: |
-        pip install g++ gcovr==5.0
+        curl -o gcovr https://raw.githubusercontent.com/gcovr/gcovr/master/scripts/gcovr
+        chmod +x gcovr
     - name: Install sonar-scanner and build-wrapper
       uses: SonarSource/sonarcloud-github-c-cpp@v1
     - name: Run C++ Tests
