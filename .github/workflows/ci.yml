@@ -33,7 +33,7 @@ jobs:
         python-version: 3.8
     - name: install gcovr 5.0
       run: |
-        pip install gcovr==5.0 # 5.1 is not supported
+        python3 install gcovr==5.0 # 5.1 is not supported
     - name: Install sonar-scanner and build-wrapper
       uses: SonarSource/sonarcloud-github-c-cpp@v1
     - name: Run C++ Tests
