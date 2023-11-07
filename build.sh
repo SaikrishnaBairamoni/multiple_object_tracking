@@ -26,6 +26,6 @@ set -e
 # ctest --output-on-failure
 mkdir build
 cmake -S . -B build
-build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build/ --config Release
+build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output cmake --build build/ --config Release
 ./build/coverage
 gcovr --sonarqube > coverage.xml
