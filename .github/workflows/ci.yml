@@ -48,6 +48,7 @@ jobs:
         build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output cmake --build build/ --config Release
         ls -la && pwd
         cd build
+        ctest --output-on-failure
         gcovr --sonarqube > coverage.xml
     - name: Find coverage.xml
       shell: bash
