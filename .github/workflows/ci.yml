@@ -14,7 +14,7 @@ jobs:
       env:
         INIT_ENV: "/home/carma/.base-image/init-env.sh"
         ROS_2_ENV: "/opt/ros/foxy/setup.bash"
-        BUILD_WRAPPER_OUT_DIR: "$GITHUB_WORKSPACE/bw-output"
+        BUILD_WRAPPER_OUT_DIR: "/opt/carma/src/multiple_object_tracking/build/bw-output"
         TERM: xterm
       options: "--user root"
     steps:
@@ -45,7 +45,7 @@ jobs:
         cd /opt/carma/src/multiple_object_tracking/
         mkdir build
         cmake -S . -B build
-        build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output cmake --build build/ --config Release
+        build-wrapper-linux-x86-64 --out-dir /opt/carma/src/multiple_object_tracking/build/bw-output cmake --build build/ --config Release
         ls -la && pwd
         cd build
         ctest --output-on-failure
