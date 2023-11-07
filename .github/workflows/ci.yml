@@ -31,13 +31,13 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
-    - name: Compile Python from source
+    - name: Install Gcovr
       run: |
         curl -o gcovr https://raw.githubusercontent.com/gcovr/gcovr/master/scripts/gcovr
         chmod +x gcovr
     - name: Install sonar-scanner and build-wrapper
       uses: SonarSource/sonarcloud-github-c-cpp@v1
-    - name: Run C++ Tests
+    - name: Build & Run Tests
       run: |
         source "$INIT_ENV"
         source "$ROS_2_ENV"
@@ -46,16 +46,16 @@ jobs:
         mkdir build
         cmake -S . -B build
         build-wrapper-linux-x86-64 --out-dir /opt/carma/src/multiple_object_tracking/build/bw-output cmake --build build/ --config Release
-        ls -la && pwd
         cd build
         ctest --output-on-failure
         gcovr --sonarqube > coverage.xml
+        ls -la && pwd
     - name: Find coverage.xml
       shell: bash
       run: |
-        find "$GITHUB_WORKSPACE" -name "coverage.xml"
+        find "/opt/carma/src/multiple_object_tracking/build/" -name "coverage.xml"
     - name: Run SonarScanner
       uses: usdot-fhwa-stol/actions/sonar-scanner@main
       with:
         sonar-token: ${{ secrets.SONAR_TOKEN }}
-        working-dir: "/opt/carma/src/multiple_object_tracking/build"
+        working-dir: "/opt/carma/src/${{ github.event.repository.name }}"
