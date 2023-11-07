@@ -43,7 +43,15 @@ jobs:
         source "$ROS_2_ENV"
         chmod 755  -R /opt/carma/src
         cd /opt/carma/src/multiple_object_tracking/
-        ./build.sh
+        mkdir build
+        cmake -S . -B build
+        build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output cmake --build build/ --config Release
+        ls -la && pwd
+        gcovr --sonarqube > coverage.xml
+    - name: Find coverage.xml
+      shell: bash
+      run: |
+        find "$GITHUB_WORKSPACE" -name "coverage.xml"
     - name: Run SonarScanner
       uses: usdot-fhwa-stol/actions/sonar-scanner@main
       with:
