@@ -50,7 +50,7 @@ jobs:
         build-wrapper-linux-x86-64 --out-dir /opt/carma/src/multiple_object_tracking/build/bw-output cmake --build build/ --config Release
         cd build
         ctest --output-on-failure
-        gcovr --xml -o coverage.xml
+        gcovr --sonarqube coverage.xml -k -r .
     - name: Find coverage.xml
       shell: bash
       run: |
