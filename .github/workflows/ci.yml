@@ -12,13 +12,13 @@ jobs:
     runs-on: ubuntu-latest  # Run on the latest version of Ubuntu
 
     container:  # Use a Docker container as the execution environment
-      image: usdotfhwastoldev/carma-base:upgrade_sonar_scanner  # Docker image to use
+      image: ubuntu:jammy-20230126 # Docker image to use
       env:  # Define environment variables for the container
         INIT_ENV: "/home/carma/.base-image/init-env.sh"
         ROS_2_ENV: "/opt/ros/foxy/setup.bash"
         BUILD_WRAPPER_OUT_DIR: "/opt/carma/src/multiple_object_tracking/build/bw-output"
         TERM: xterm
-      options: "--user root"  # Additional Docker container options
+      options: "--user root"  # Additional Docker container options to set permissions
 
     steps:  # Define a series of steps to execute in the job
     - name: Checkout ${{ github.event.repository.name }}  # Checkout the repository
@@ -54,7 +54,7 @@ jobs:
     - name: Install sonar-scanner and build-wrapper  # Install SonarScanner and build-wrapper
       uses: SonarSource/sonarcloud-github-c-cpp@v1
 
-    - name: Build & Run Tests  # Build and run tests
+    - name: Build & Run Tests  # Build and run tests for multiple_object_tracking package and run gcovr before sonar scan.
       run: |
         source "$INIT_ENV"
         source "$ROS_2_ENV"
