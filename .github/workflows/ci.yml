@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest  # Run on the latest version of Ubuntu
 
     container:  # Use a Docker container as the execution environment
-      image: ubuntu:jammy-20230126 # Docker image to use
+      image: usdotfhwastoldev/autoware.ai:develop  # Docker image to use
       env:  # Define environment variables for the container
         INIT_ENV: "/home/carma/.base-image/init-env.sh"
         ROS_2_ENV: "/opt/ros/foxy/setup.bash"
@@ -52,7 +52,7 @@ jobs:
         distribution: "temurin"
 
     - name: Install sonar-scanner and build-wrapper  # Install SonarScanner and build-wrapper
-      uses: SonarSource/sonarcloud-github-c-cpp@v1
+      uses: SonarSource/sonarcloud-github-c-cpp@v2
 
     - name: Build & Run Tests  # Build and run tests for multiple_object_tracking package and run gcovr before sonar scan.
       run: |
