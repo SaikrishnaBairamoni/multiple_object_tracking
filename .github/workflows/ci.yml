@@ -31,9 +31,11 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
-    - name: Install Gcovr
+    - name: Install Gcovr 5.0
       run: |
-        curl -o gcovr https://raw.githubusercontent.com/gcovr/gcovr/master/scripts/gcovr
+        curl -L -o gcovr https://github.com/gcovr/gcovr/archive/5.0.tar.gz
+        tar -xzvf gcovr
+        cd gcovr-5.0
         chmod +x gcovr
     - name: Install sonar-scanner and build-wrapper
       uses: SonarSource/sonarcloud-github-c-cpp@v1
