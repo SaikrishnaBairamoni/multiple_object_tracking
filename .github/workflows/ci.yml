@@ -10,12 +10,11 @@ jobs:
         working-directory: "/opt/carma/"
     runs-on: ubuntu-latest
     container:
-      image: usdotfhwastoldev/autoware.ai:develop
+      image: usdotfhwastoldev/carma-base:upgrade_sonar_scanner
       env:
         INIT_ENV: "/home/carma/.base-image/init-env.sh"
         ROS_2_ENV: "/opt/ros/foxy/setup.bash"
         BUILD_WRAPPER_OUT_DIR: "/opt/carma/src/multiple_object_tracking/build/bw-output"
-        SONAR_SCANNER_VERSION: "5.0.1.3006"
         TERM: xterm
       options: "--user root"
     steps:
@@ -38,25 +37,8 @@ jobs:
         tar -xzvf gcovr
         cd gcovr-5.0
         chmod +x gcovr
-    - name: Install Sonar
-      run: |
-        SONAR_DIR=/opt/sonarqube
-        mkdir $SONAR_DIR
-        curl -o $SONAR_DIR/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip
-        curl -o $SONAR_DIR/build-wrapper.zip https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
-        curl -sL https://deb.nodesource.com/setup_16.x |bash -
-        apt-get install -y nodejs unzip
-        cd $SONAR_DIR
-        for ZIP in *.zip; do
-          unzip "$ZIP" -d .
-          rm "$ZIP"
-        done
-        mv $(ls $SONAR_DIR |grep "sonar-scanner-") $SONAR_DIR/sonar-scanner/
-        mv $(ls $SONAR_DIR |grep "build-wrapper-") $SONAR_DIR/build-wrapper/
-        echo $SONAR_DIR/sonar-scanner/bin >> $GITHUB_PATH
-        echo $SONAR_DIR/build-wrapper >> $GITHUB_PATH
-    # - name: Install sonar-scanner and build-wrapper
-    #   uses: SonarSource/sonarcloud-github-c-cpp@v1
+    - name: Install sonar-scanner and build-wrapper
+      uses: SonarSource/sonarcloud-github-c-cpp@v1
     - name: Build & Run Tests
       run: |
         source "$INIT_ENV"
